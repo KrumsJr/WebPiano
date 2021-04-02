@@ -13,43 +13,43 @@
         <p><a href="../index.html">laid atpakaļ!</a></p>
         <div class="klaviatura-container">
             <div class="augsina">
-                <div id="k1">C</div>
-                <div id="k2">C#</div>
-                <div id="k3">D</div>
-                <div id="k4">D#</div>
-                <div id="k5">E</div>
-                <div id="k6">F</div>
-                <div id="k7">F#</div>
-                <div id="k8">G</div>
-                <div id="k9">G#</div>
-                <div id="k10">A</div>
-                <div id="k11">A#</div>
-                <div id="k12">B</div>
-                <div id="k13">C</div>
-                <div id="k14">C#</div>
-                <div id="k15">D</div>
-                <div id="k16">D#</div>
-                <div id="k17">E</div>
+                <div id="k1" onmousedown="nospiedaTaustinu(1)" onmouseup="atlaidaTaustinu(1)">C</div>
+                <div id="k2" onmousedown="nospiedaTaustinu(2)" onmouseup="atlaidaTaustinu(2)">C#</div>
+                <div id="k3" onmousedown="nospiedaTaustinu(3)" onmouseup="atlaidaTaustinu(3)">D</div>
+                <div id="k4" onmousedown="nospiedaTaustinu(4)" onmouseup="atlaidaTaustinu(4)">D#</div>
+                <div id="k5" onmousedown="nospiedaTaustinu(5)" onmouseup="atlaidaTaustinu(5)">E</div>
+                <div id="k6" onmousedown="nospiedaTaustinu(6)" onmouseup="atlaidaTaustinu(6)">F</div>
+                <div id="k7" onmousedown="nospiedaTaustinu(7)" onmouseup="atlaidaTaustinu(7)">F#</div>
+                <div id="k8" onmousedown="nospiedaTaustinu(8)" onmouseup="atlaidaTaustinu(8)">G</div>
+                <div id="k9" onmousedown="nospiedaTaustinu(9)" onmouseup="atlaidaTaustinu(9)">G#</div>
+                <div id="k10" onmousedown="nospiedaTaustinu(10)" onmouseup="atlaidaTaustinu(10)">A</div>
+                <div id="k11" onmousedown="nospiedaTaustinu(11)" onmouseup="atlaidaTaustinu(11)">A#</div>
+                <div id="k12" onmousedown="nospiedaTaustinu(12)" onmouseup="atlaidaTaustinu(12)">B</div>
+                <div id="k13" onmousedown="nospiedaTaustinu(13)" onmouseup="atlaidaTaustinu(13)">C</div>
+                <div id="k14" onmousedown="nospiedaTaustinu(14)" onmouseup="atlaidaTaustinu(14)">C#</div>
+                <div id="k15" onmousedown="nospiedaTaustinu(15)" onmouseup="atlaidaTaustinu(15)">D</div>
+                <div id="k16" onmousedown="nospiedaTaustinu(16)" onmouseup="atlaidaTaustinu(16)">D#</div>
+                <div id="k17" onmousedown="nospiedaTaustinu(17)" onmouseup="atlaidaTaustinu(17)">E</div>
             </div>
             <div class="apaksina">
-                <div id="b1"></div>
-                <div id="b3"></div>
-                <div id="b5"></div>
-                <div id="b6"></div>
-                <div id="b8"></div>
-                <div id="b10"></div>
-                <div id="b12"></div>
-                <div id="b13"></div>
-                <div id="b15"></div>
-                <div id="b17"></div>
+                <div id="b1" onmousedown="nospiedaTaustinu(1)" onmouseup="atlaidaTaustinu(1)"></div>
+                <div id="b3" onmousedown="nospiedaTaustinu(3)" onmouseup="atlaidaTaustinu(3)"></div>
+                <div id="b5" onmousedown="nospiedaTaustinu(5)" onmouseup="atlaidaTaustinu(5)"></div>
+                <div id="b6" onmousedown="nospiedaTaustinu(6)" onmouseup="atlaidaTaustinu(6)"></div>
+                <div id="b8" onmousedown="nospiedaTaustinu(8)" onmouseup="atlaidaTaustinu(8)"></div>
+                <div id="b10" onmousedown="nospiedaTaustinu(10)" onmouseup="atlaidaTaustinu(10)"></div>
+                <div id="b12" onmousedown="nospiedaTaustinu(12)" onmouseup="atlaidaTaustinu(12)"></div>
+                <div id="b13" onmousedown="nospiedaTaustinu(13)" onmouseup="atlaidaTaustinu(13)"></div>
+                <div id="b15" onmousedown="nospiedaTaustinu(15)" onmouseup="atlaidaTaustinu(15)"></div>
+                <div id="b17" onmousedown="nospiedaTaustinu(17)" onmouseup="atlaidaTaustinu(17)"></div>
             </div>
         </div>
         <input type="text" id="baseFreq" value="440" style="width:30px;">
         <button onclick="chBaseFreq();">Set frequency!</button>
 
-        <button onclick="shiftOctave(0);"><<</button>
+        <button onclick="shiftOctave(0);">&lt&lt</button>
         <button onclick="shiftOctave(1);">Reset octave!</button>
-        <Button onclick="shiftOctave(2);">>></Button>
+        <Button onclick="shiftOctave(2);">&gt&gt</Button>
         
         Wave:
         <select id="pickWave" oninput="changeWave(this.value)">
@@ -58,12 +58,18 @@
             <option value="sawtooth">Sawtooth</option>
             <option value="square">Square</option>
         </select>
+
         Temperament:
         <input type="text" id="tetCh" value="12" style="width:30px;">
         <button onclick="changeTemperament(document.getElementById(`tetCh`).value);">Set!</button>
 
-        <footer>
-            <p>(c) Edgars Krūmiņš</p>
-        </footer>
+        Volume:
+        <input type="range" id="volSlider" min="0"  max="1" step="0.01" value="0.2" oninput="chVol(this.value)">
+        <br>
+        Arrpegiator:
+        interval:
+        <input type="text" id="arpIntervalInput" min="0" max="10000" value="500" onfocus="arp.intervalInp = true;">
+        <button onclick="arp.stop()">Clear!</button>
+
     </body>
 </html>

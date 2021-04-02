@@ -6,6 +6,58 @@ let tet = Math.pow(2, (1/12));
 let a0 = 27.5;
 let octModifier = 39;
 let wave = `sine`;
+let skalums = 0.2;
+let nospiestsIr = [];
+
+let  arp = {
+    interval: false,
+    intervalInp: false,
+    time: 100,
+    masivs: [],
+    iet: false,
+    i: 0,
+    chTime: () => {
+        let a = document.getElementById(`arpIntervalInput`).value;
+        clearInterval(arp.interval);
+        arp.time = parseInt(a);
+        arp.start();
+    },
+    stop: () => {
+        if (arp.iet) {
+            clearInterval(arp.interval);
+            arp.iet = false;
+            for (let i = 1; i < 18; i++) {
+                atlaidaTaustinu(i);
+            }
+            arp.i = 0;
+        };
+    },
+    start: () => {
+        if(arp.iet) {
+            clearInterval(arp.interval);
+        }
+        arp.iet = true;
+        
+        arp.i = 0;
+        arp.interval = setInterval(() => {
+            if (arp.masivs.length > arp.i) {
+                if (arp.i !== 0) {atlaidaTaustinu(arp.masivs[arp.i-1])};
+                nospiedaTaustinu(arp.masivs[arp.i]);
+                arp.i++;
+            } else {
+                atlaidaTaustinu(arp.masivs[arp.i-1]);
+                arp.i = 0;         
+                if (arp.masivs[arp.i] > 0) {
+                    nospiedaTaustinu(arp.masivs[arp.i]);
+                }       
+                arp.i++;
+            }
+            }, arp.time);
+    }
+}
+
+//let envelope;
+
 {
 taustini[65] = 1;
 taustini[87] = 2;
@@ -24,7 +76,7 @@ taustini[79] = 14;
 taustini[76] = 15;
 taustini[80] = 16;
 taustini[59] = 17;
-taustini[186] = 17;
+taustini[186] = 17; //jo dažādos browseros ir dažāda adresācija bļ
 }
 
 document.addEventListener('keydown', KeyDwn);
@@ -33,9 +85,23 @@ document.addEventListener('keyup', KeyUp);
 
 function KeyDwn(e) {
 
-    //console.log(`${e.key} = ${e.keyCode}`);
-    if (!isNaN(taustini[e.keyCode])) {
-        nospiedaTaustinu(taustini[e.keyCode]);
+    
+    if (!isNaN(taustini[e.keyCode]) && !nospiestsIr[taustini[e.keyCode]]) {
+        
+        nospiestsIr[taustini[e.keyCode]] = true;
+        console.log(`${e.key} = ${e.keyCode}`);
+
+        if (e.getModifierState(`CapsLock`)) {
+            arp.masivs.push(taustini[e.keyCode]);
+            arp.start();
+            console.log(arp.masivs);
+        }  else {
+            nospiedaTaustinu(taustini[e.keyCode]);
+        }
+    }
+
+    if ((e.keyCode === 13) && (arp.intervalInput)) {
+        arp.chTime();
     }
 
     if (e.keyCode == 39) {
@@ -46,7 +112,22 @@ function KeyDwn(e) {
 }
 
 function KeyUp(e) {
-    atlaidaTaustinu(taustini[e.keyCode]);
+    if (!isNaN(taustini[e.keyCode])) {
+        atlaidaTaustinu(taustini[e.keyCode]);
+        nospiestsIr[taustini[e.keyCode]] = false;
+        if ((arp.iet) && (arp.masivs.length < 1)) {
+            arp.stop();
+        }
+        if (e.getModifierState(`CapsLock`)) {
+            arp.masivs.splice(arp.masivs.indexOf(taustini[e.keycode]), 1);
+        }
+       
+    }
+
+    
+
+
+    
 }
 
 function nospiedaTaustinu(a) {
@@ -54,7 +135,7 @@ function nospiedaTaustinu(a) {
         osc[a] = new p5.Oscillator(frekvences[a+octModifier], wave);
 
         osc[a].start();
-        osc[a].amp(0.2);
+        osc[a].amp(skalums);
         speleTagad[a] = true;
 
         if (a == 1 || a == 3 || a == 5 || a == 6 || a == 8 || a == 10 || a == 12 || a == 13 || a == 15 || a == 17) {
@@ -87,6 +168,7 @@ function chBaseFreq() {
     reloadFreq();
 }
 
+
 function reloadFreq() {
     for (let i = 1; i < 100; i++) {
         frekvences[i] = a0;
@@ -114,4 +196,27 @@ function changeWave(a) {
     wave = a;
 }
 
+function chVol(a) {
+    console.log(a);
+    skalums = parseFloat(a);
+    for (let i = 1; i <= speleTagad.length; i++) {
+        if (speleTagad[i]) {
+            osc[i].amp(skalums);
+        }
+    }
+}
+
 reloadFreq();
+
+/*
+
+Tudū:
+-)ARPEDŽIATORS! uz kasploka
+-)sakārtot lapu
+-)spiež uz taustiņa skan
+-)volume slideris
+-)pitch shift uz scrolwheela
+-)custom frekvences katram taustiņam
+-)frekvenču lodziņi pie taustiņiem
+
+*/

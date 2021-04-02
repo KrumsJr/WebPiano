@@ -1,0 +1,60 @@
+body {
+    font-size: 24px;
+    margin-left: 20px;
+    background-color: antiquewhite;
+}
+
+.kalviatura-containter {
+    width: 600px;
+    display: grid;
+    grid-template-columns: 420px;
+}
+
+.augsina {
+    width: 600px;
+    display: grid;
+    grid-template-columns: 40px 40px 20px 40px 40px 40px 40px 20px 40px 20px 40px 40px 40px 40px 20px 40px 40px;
+    grid-template-rows: 100px;
+    column-gap: 0px;
+    row-gap: 0px;
+    background-color: whitesmoke;
+    padding: 0px;
+}
+
+.apaksina {
+    width: 600px;
+    display: grid;
+    grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
+    grid-template-rows: 80px;
+    column-gap: 0px;
+    row-gap: 0px;
+    background-color: whitesmoke;
+    padding: 0px;
+}
+.augsina > div {
+    text-align: center;
+    border-top: solid 1px black;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+}
+
+.apaksina > div{
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+}
+
+
+#k1, #k5, #k6, #k12 {
+    background-color: whitesmoke;
+}
+
+#k2, #k4, #k7, #k9, #k11, #k14, #k16{
+    color: white;
+    background-color: black;
+}
+
+
+
+
+

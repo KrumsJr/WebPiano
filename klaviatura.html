@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+    <Head>
+        <link rel="stylesheet" href="tasiraklav.css">
+        <meta charset="UTF-8">
+        <title>klavieres?</title>
+        <script src="p5/p5.js"></script>
+        <script src="p5/addons/p5.sound.js"></script>
+        <script src="klav.js"></script>
+    </Head>
+    <body>
+        <h3 id="vien">//klavieres?</h3>
+        <p><a href="../index.html">laid atpakaļ!</a></p>
+        <div class="klaviatura-container">
+            <div class="augsina">
+                <div id="k1">C</div>
+                <div id="k2">C#</div>
+                <div id="k3">D</div>
+                <div id="k4">D#</div>
+                <div id="k5">E</div>
+                <div id="k6">F</div>
+                <div id="k7">F#</div>
+                <div id="k8">G</div>
+                <div id="k9">G#</div>
+                <div id="k10">A</div>
+                <div id="k11">A#</div>
+                <div id="k12">B</div>
+                <div id="k13">C</div>
+                <div id="k14">C#</div>
+                <div id="k15">D</div>
+                <div id="k16">D#</div>
+                <div id="k17">E</div>
+            </div>
+            <div class="apaksina">
+                <div id="b1"></div>
+                <div id="b3"></div>
+                <div id="b5"></div>
+                <div id="b6"></div>
+                <div id="b8"></div>
+                <div id="b10"></div>
+                <div id="b12"></div>
+                <div id="b13"></div>
+                <div id="b15"></div>
+                <div id="b17"></div>
+            </div>
+        </div>
+        <input type="text" id="baseFreq" value="440" style="width:30px;">
+        <button onclick="chBaseFreq();">Set frequency!</button>
+
+        <button onclick="shiftOctave(0);"><<</button>
+        <button onclick="shiftOctave(1);">Reset octave!</button>
+        <Button onclick="shiftOctave(2);">>></Button>
+        
+        Wave:
+        <select id="pickWave" oninput="changeWave(this.value)">
+            <option value="sine">Sine</option>
+            <option value="triangle">Triangle</option>
+            <option value="sawtooth">Sawtooth</option>
+            <option value="square">Square</option>
+        </select>
+        Temperament:
+        <input type="text" id="tetCh" value="12" style="width:30px;">
+        <button onclick="changeTemperament(document.getElementById(`tetCh`).value);">Set!</button>
+
+        <footer>
+            <p>(c) Edgars Krūmiņš</p>
+        </footer>
+    </body>
+</html>

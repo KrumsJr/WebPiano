@@ -1,13 +1,59 @@
 body {
     font-size: 24px;
-    margin-left: 20px;
+    width: 100vw;
+    height: 100vh;
     background-color: antiquewhite;
+}
+
+h1 {
+    padding-top: 1em;
+    font-size: 36px;
+}
+
+p {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.content-container {
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 90%;
+    max-width: 1000px;
+    min-width: 830px;
+    margin: auto;
+    height: 100%;
 }
 
 .kalviatura-containter {
     width: 600px;
     display: grid;
     grid-template-columns: 420px;
+}
+
+.klaviatura-flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls-container {
+    display: flex;
+    width: 230px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+
+    font-size: 18px;
+}
+
+.control-group {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: black solid 1px;
+}
+
+.control-group:first-child {
+    border-top: black solid 1px;
 }
 
 .augsina {
@@ -54,6 +100,16 @@ body {
     background-color: black;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 5%;
+    width: 100%;
+    border-top: black solid 1px;
+    background-color: whitesmoke;
+}
 
 
 

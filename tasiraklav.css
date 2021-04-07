@@ -30,6 +30,14 @@ p {
     height: 180px;
     display: grid;
     grid-template-columns: 420px;
+    cursor: pointer;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */ 
 }
 
 .klaviatura-flex-container {
@@ -43,7 +51,6 @@ p {
     height: 100%;
     flex-direction: column;
     justify-content: space-around;
-
     font-size: 18px;
 }
 
@@ -91,6 +98,7 @@ p {
     background-color: whitesmoke;
     padding: 0px;
 }
+
 .augsina > div {
     text-align: center;
     border-top: solid 1px black;

@@ -25,8 +25,9 @@ p {
     height: 100%;
 }
 
-.kalviatura-containter {
+.klaviatura-container {
     width: 600px;
+    height: 180px;
     display: grid;
     grid-template-columns: 420px;
 }

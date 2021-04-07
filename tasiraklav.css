@@ -68,6 +68,19 @@ p {
     padding: 0px;
 }
 
+.augsina > div, .apaksina > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.freq-indicator {
+    font-size: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 .apaksina {
     width: 600px;
     display: grid;

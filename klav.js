@@ -9,6 +9,7 @@ let octModifier = 39;
 let wave = `sine`;
 let skalums = 0.2;
 let nospiestsIr = [];
+let peleNospiesta = false;
 
 let arp = {
     interval: false,
@@ -57,8 +58,6 @@ let arp = {
     }
 }
 
-//let envelope;
-
 {
     taustini[65] = 1;
     taustini[87] = 2;
@@ -82,10 +81,18 @@ let arp = {
 
 document.addEventListener('keydown', KeyDwn);
 document.addEventListener('keyup', KeyUp);
-
+document.addEventListener(`mousedown`, () => {
+    if (!peleNospiesta) {
+        peleNospiesta = true;
+    }
+});
+document.addEventListener(`mouseup`, () => {
+    if (peleNospiesta) {
+        peleNospiesta = false;
+    }
+});
 
 function KeyDwn(e) {
-
 
     if (!isNaN(taustini[e.keyCode]) && !nospiestsIr[taustini[e.keyCode]]) {
 
@@ -159,11 +166,14 @@ function atlaidaTaustinu(a) {
     }
 }
 
+function iebrauca(a) {
+    if (peleNospiesta) nospiedaTaustinu(a);
+}
+
 function chBaseFreq() {
     if (!isNaN(document.getElementById(`baseFreq`).value)) {
         a0 = document.getElementById(`baseFreq`).value / 16;
     }
-    //console.log(a0);
     reloadFreq();
     reloadFreqIndicators();
 }
@@ -177,6 +187,7 @@ function reloadFreq() {
 }
 
 function reloadFreqIndicators() {
+    if (document.getElementById(`vajagRadit`).value == `false`) return;
     for (const i in taustini) {
         if (apaksina.includes(taustini[i])) {
             document
@@ -189,6 +200,20 @@ function reloadFreqIndicators() {
         }
     }
 }
+
+function clearFreqIndicators() {
+    for (const i in taustini) {
+        if (apaksina.includes(taustini[i])) {
+            document
+                .querySelector(`#b${taustini[i]} .freq-indicator`)
+                .textContent = ``;
+        } else {
+            document
+                .querySelector(`#k${taustini[i]} .freq-indicator`)
+                .textContent = ``;
+        }
+    }
+}        
 
 function shiftOctave(a) {
     if (a == 0 && octModifier > 12) {
@@ -222,19 +247,32 @@ function chVol(a) {
 
 reloadFreq();
 
-document.addEventListener("DOMContentLoaded", function (event) {
+function toggleFreq() {
+    if (document.getElementById(`vajagRadit`).value == `false`) {
+        document.getElementById(`vajagRadit`).value = true;
+        reloadFreqIndicators();        
+    } else {
+        document.getElementById(`vajagRadit`).value = false;
+        clearFreqIndicators();
+    }
+    console.log(document.getElementById(`vajagRadit`).value);
+}
+
+document.addEventListener(`DOMContentLoaded`, function (event) {
     reloadFreqIndicators();
 });
 
 /*
 
 Tudū:
+-)sačinīt sākuma troksni (izprast envelopu)
 -)ARPEDŽIATORS! uz kasploka
--)sakārtot lapu
--)spiež uz taustiņa skan
--)volume slideris
 -)pitch shift uz scrolwheela
 -)custom frekvences katram taustiņam
--)frekvenču lodziņi pie taustiņiem
+✓)sakārtot lapu
+✓)spiež uz taustiņa skan
+✓)glissando nevis iesprūst tas uz kā uzspieda.
+✓)volume slideris
+✓)frekvenču lodziņi pie taustiņiem (iespēja izslēgt/ieslēgt)
 
 */

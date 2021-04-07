@@ -25,8 +25,9 @@ p {
     height: 100%;
 }
 
-.kalviatura-containter {
+.klaviatura-container {
     width: 600px;
+    height: 180px;
     display: grid;
     grid-template-columns: 420px;
 }
@@ -65,6 +66,19 @@ p {
     row-gap: 0px;
     background-color: whitesmoke;
     padding: 0px;
+}
+
+.augsina > div, .apaksina > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.freq-indicator {
+    font-size: 12px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .apaksina {

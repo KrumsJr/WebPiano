@@ -8,7 +8,7 @@
     <title>klavieres?</title>
     <script src="p5/p5.js"></script>
     <script src="p5/addons/p5.sound.js"></script>
-    <script src="klav.js"></script>
+    <script src="klav.js" defer></script>
 </head>
 
 <body>
@@ -53,7 +53,6 @@
                     <div class="control-group">
                         <input type="text" id="baseFreq" value="440" style="width:30px;">
                         <button onclick="chBaseFreq();">Set frequency!</button>
-                        Show freq? <input type="checkbox" value="false" id="vajagRadit" oninput="toggleFreq();">
                     </div>
                     <div class="control-group">
                         <button onclick="shiftOctave(0);">&lt&lt</button>
@@ -76,14 +75,19 @@
                     </div>
                     <div class="control-group">
                         Volume:
-                        <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.2"
-                            oninput="chVol(this.value)">
+                        <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.2" oninput="chVol(this.value)">
                     </div>
-                    <div class="control-group">
+                    <!--div class="control-group">
                         Arrpegiator interval:
                         <input type="text" id="arpIntervalInput" min="0" max="10000" value="500"
-                            onfocus="arp.intervalInp = true;">
+                        onfocus="arp.intervalInp = true;">
                         <button onclick="arp.stop()">Clear!</button>
+                    </div-->
+                    <div class="control-group">
+                        Show freq? <input type="checkbox" value="false" id="vajagRadit" oninput="toggleFreq();">
+                    </div>
+                    <div class="control-group">
+                        Sustain <input type="number" id="susInp" value="0.25" min="0.1" step="0.05" pattern=“[0-9]+” style="width:50px;">
                     </div>
                 </div>
             </div>

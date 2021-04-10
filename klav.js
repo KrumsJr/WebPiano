@@ -10,6 +10,10 @@ let wave = `sine`;
 let skalums = 0.2;
 let nospiestsIr = [];
 let peleNospiesta = false;
+let sustainTime = 0.25;
+let sustainVol = 0;
+let foreverSustain = false;
+let sustained = [];
 
 let arp = {
     interval: false,
@@ -81,6 +85,7 @@ let arp = {
 
 document.addEventListener('keydown', KeyDwn);
 document.addEventListener('keyup', KeyUp);
+document.getElementById(`susInp`).addEventListener(`keydown`, enterSusTime);
 document.addEventListener(`mousedown`, () => {
     if (!peleNospiesta) {
         peleNospiesta = true;
@@ -92,17 +97,25 @@ document.addEventListener(`mouseup`, () => {
     }
 });
 
+function enterSusTime(e) {
+    if (e.keyCode == 13) {
+        newSusTime = (document.getElementById(`susInp`).value);
+        //console.log(newSusTime);
+        sustainTime = parseFloat(newSusTime);
+    }
+}
+
 function KeyDwn(e) {
 
+    //console.log(`${e.key} = ${e.keyCode}`);
     if (!isNaN(taustini[e.keyCode]) && !nospiestsIr[taustini[e.keyCode]]) {
 
         nospiestsIr[taustini[e.keyCode]] = true;
-        console.log(`${e.key} = ${e.keyCode}`);
 
         if (e.getModifierState(`CapsLock`)) {
             arp.masivs.push(taustini[e.keyCode]);
             arp.start();
-            console.log(arp.masivs);
+            //console.log(arp.masivs);
         } else {
             nospiedaTaustinu(taustini[e.keyCode]);
         }
@@ -121,18 +134,36 @@ function KeyDwn(e) {
         shiftOctave(0)
         return;
     }
+
+    if (e.keyCode == 16) {
+        foreverSustain = true;
+    }
+
 }
 
 function KeyUp(e) {
     if (!isNaN(taustini[e.keyCode])) {
         atlaidaTaustinu(taustini[e.keyCode]);
         nospiestsIr[taustini[e.keyCode]] = false;
+        
         if ((arp.iet) && (arp.masivs.length < 1)) {
             arp.stop();
         }
         if (e.getModifierState(`CapsLock`)) {
             arp.masivs.splice(arp.masivs.indexOf(taustini[e.keycode]), 1);
         }
+
+        if (foreverSustain) {
+            sustained.push(taustini[e.keyCode]);
+            console.table(sustained);
+        }
+    }
+
+    if (e.keyCode == 16) {
+        foreverSustain = false;
+
+        sustained.forEach (a => atlaidaTaustinu(a));
+        sustained = [];
     }
 }
 
@@ -143,6 +174,7 @@ function nospiedaTaustinu(a) {
         osc[a].start();
         osc[a].amp(skalums);
         speleTagad[a] = true;
+        //console.log(osc[a]);
 
         if (apaksina.includes(a)) {
             document.getElementById(`k${a}`).style.backgroundColor = `gray`;
@@ -155,14 +187,17 @@ function nospiedaTaustinu(a) {
 
 function atlaidaTaustinu(a) {
     if (speleTagad[a]) {
-        osc[a].stop();
+        if (foreverSustain) return;
+        osc[a].amp(0, sustainTime);
+        osc[a].stop(sustainTime + 0.1);
         speleTagad[a] = false;
+
         if (apaksina.includes(a)) {
             document.getElementById(`k${a}`).style.backgroundColor = `whitesmoke`;
             document.getElementById(`b${a}`).style.backgroundColor = `whitesmoke`;
         } else {
             document.getElementById(`k${a}`).style.backgroundColor = `black`;
-        }
+        } 
     }
 }
 
@@ -236,7 +271,7 @@ function changeWave(a) {
 }
 
 function chVol(a) {
-    console.log(a);
+    // console.log(a);
     skalums = parseFloat(a);
     for (let i = 1; i <= speleTagad.length; i++) {
         if (speleTagad[i]) {
@@ -255,7 +290,7 @@ function toggleFreq() {
         document.getElementById(`vajagRadit`).value = false;
         clearFreqIndicators();
     }
-    console.log(document.getElementById(`vajagRadit`).value);
+    // console.log(document.getElementById(`vajagRadit`).value);
 }
 
 document.addEventListener(`DOMContentLoaded`, function (event) {

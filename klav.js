@@ -85,7 +85,6 @@ let arp = {
 
 document.addEventListener('keydown', KeyDwn);
 document.addEventListener('keyup', KeyUp);
-document.getElementById(`susInp`).addEventListener(`keydown`, enterSusTime);
 document.addEventListener(`mousedown`, () => {
     if (!peleNospiesta) {
         peleNospiesta = true;
@@ -97,12 +96,8 @@ document.addEventListener(`mouseup`, () => {
     }
 });
 
-function enterSusTime(e) {
-    if (e.keyCode == 13) {
-        newSusTime = (document.getElementById(`susInp`).value);
-        //console.log(newSusTime);
-        sustainTime = parseFloat(newSusTime);
-    }
+function chSusTime(time) {
+    sustainTime = parseFloat(time);
 }
 
 function KeyDwn(e) {
@@ -145,7 +140,7 @@ function KeyUp(e) {
     if (!isNaN(taustini[e.keyCode])) {
         atlaidaTaustinu(taustini[e.keyCode]);
         nospiestsIr[taustini[e.keyCode]] = false;
-        
+
         if ((arp.iet) && (arp.masivs.length < 1)) {
             arp.stop();
         }
@@ -162,7 +157,7 @@ function KeyUp(e) {
     if (e.keyCode == 16) {
         foreverSustain = false;
 
-        sustained.forEach (a => atlaidaTaustinu(a));
+        sustained.forEach(a => atlaidaTaustinu(a));
         sustained = [];
     }
 }
@@ -197,7 +192,7 @@ function atlaidaTaustinu(a) {
             document.getElementById(`b${a}`).style.backgroundColor = `whitesmoke`;
         } else {
             document.getElementById(`k${a}`).style.backgroundColor = `black`;
-        } 
+        }
     }
 }
 
@@ -248,7 +243,7 @@ function clearFreqIndicators() {
                 .textContent = ``;
         }
     }
-}        
+}
 
 function shiftOctave(a) {
     if (a == 0 && octModifier > 12) {
@@ -285,7 +280,7 @@ reloadFreq();
 function toggleFreq() {
     if (document.getElementById(`vajagRadit`).value == `false`) {
         document.getElementById(`vajagRadit`).value = true;
-        reloadFreqIndicators();        
+        reloadFreqIndicators();
     } else {
         document.getElementById(`vajagRadit`).value = false;
         clearFreqIndicators();
@@ -296,18 +291,3 @@ function toggleFreq() {
 document.addEventListener(`DOMContentLoaded`, function (event) {
     reloadFreqIndicators();
 });
-
-/*
-
-Tudū:
--)sačinīt sākuma troksni (izprast envelopu)
--)ARPEDŽIATORS! uz kasploka
--)pitch shift uz scrolwheela
--)custom frekvences katram taustiņam
-✓)sakārtot lapu
-✓)spiež uz taustiņa skan
-✓)glissando nevis iesprūst tas uz kā uzspieda.
-✓)volume slideris
-✓)frekvenču lodziņi pie taustiņiem (iespēja izslēgt/ieslēgt)
-
-*/

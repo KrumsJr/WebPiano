@@ -291,18 +291,3 @@ function toggleFreq() {
 document.addEventListener(`DOMContentLoaded`, function (event) {
     reloadFreqIndicators();
 });
-
-/*
-
-Tudū:
--)sačinīt sākuma troksni (izprast envelopu)
--)ARPEDŽIATORS! uz kasploka
--)pitch shift uz scrolwheela
--)custom frekvences katram taustiņam
-✓)sakārtot lapu
-✓)spiež uz taustiņa skan
-✓)glissando nevis iesprūst tas uz kā uzspieda.
-✓)volume slideris
-✓)frekvenču lodziņi pie taustiņiem (iespēja izslēgt/ieslēgt)
-
-*/

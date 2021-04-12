@@ -141,3 +141,13 @@ footer {
     border-top: black solid 1px;
     background-color: whitesmoke;
 }
+
+footer img {
+    margin-left: 10px;
+    opacity: 60%;
+    transition: ease-in-out 200ms;
+}
+
+footer img:hover {
+    opacity: 100%;
+}

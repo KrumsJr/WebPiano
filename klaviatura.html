@@ -131,9 +131,6 @@
                 <div class="control-group">
                     Show freq? <input type="checkbox" value="false" id="vajagRadit" oninput="toggleFreq();">
                 </div>
-                <div class="control-group">
-                    Sustain <input type="number" id="susInp" value="0.25" min="0.1" step="0.05" pattern=“[0-9]+” style="width:90px;" oninput="chSusTime(this.value);">
-                </div>
             </div>
         </div>
         <ul class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -157,6 +154,9 @@
             <div class="tab-pane fade show active" id="nav-info" role="tabpanel">
                 <h2>Controls description</h2>
                 <ul>
+                    <li>
+                        The synthesizer keys correspond to the a-; and w-p keys on your keyboard
+                    </li>
                     <li>
                         Frequency - set the base A frequency
                     </li>
@@ -184,26 +184,21 @@
                         Show freq? - display the individual frequencies of the notes on the keys
                     </li>
                     <li>
-                        Sustain - time in seconds, how long a key is sustained after release
-                    </li>
-                    <li>
                         Hold shift to sustain notes
-                    </li>
-                    <li>
-                        Enable caps lock for arpeggiator - plays an arpeggio with the sustained notes
                     </li>
                 </ul>
             </div>
             <div class="tab-pane fade" id="nav-sustain" role="tabpanel">
                 <h2>Sustain</h2>
                 <p>
-                    Text and controls of the sustain effect
+                    Time in seconds, how long a key is sustained after release
                 </p>
+                Sustain <input type="number" id="susInp" value="0.25" min="0.1" step="0.05" pattern=“[0-9]+” style="width:90px;" oninput="chSusTime(this.value);">
             </div>
             <div class="tab-pane fade" id="nav-arpeggiator" role="tabpanel">
                 <h2>Arpeggiator</h2>
                 <p>
-                    Text and controls of the arpeggiator
+                    Enable caps lock for arpeggiator. It will play an arpeggio with the sustained notes.
                 </p>
             </div>
             <div class="tab-pane fade" id="nav-vibrato" role="tabpanel">

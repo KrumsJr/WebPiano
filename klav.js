@@ -14,6 +14,10 @@ let sustainTime = 0.25;
 let sustainVol = 0;
 let foreverSustain = false;
 let sustained = [];
+let isVibrato = false
+let isTremolo = false
+const vibrato = new p5.Oscillator();
+const tremolo = new p5.Oscillator();
 
 let arp = {
     interval: false,
@@ -96,10 +100,6 @@ document.addEventListener(`mouseup`, () => {
     }
 });
 
-function chSusTime(time) {
-    sustainTime = parseFloat(time);
-}
-
 function KeyDwn(e) {
 
     //console.log(`${e.key} = ${e.keyCode}`);
@@ -166,10 +166,11 @@ function nospiedaTaustinu(a) {
     if (!speleTagad[a]) {
         osc[a] = new p5.Oscillator(frekvences[a + octModifier], wave);
 
-        osc[a].start();
         osc[a].amp(skalums);
+        if (isVibrato) osc[a].amp(vibrato);
+        if (isTremolo) osc[a].freq(tremolo);
+        osc[a].start();
         speleTagad[a] = true;
-        //console.log(osc[a]);
 
         if (apaksina.includes(a)) {
             document.getElementById(`k${a}`).style.backgroundColor = `gray`;
@@ -272,6 +273,82 @@ function chVol(a) {
         if (speleTagad[i]) {
             osc[i].amp(skalums);
         }
+    }
+}
+
+// EFFEKTI \\
+function chSusTime(time) {
+    sustainTime = parseFloat(time);
+}
+
+function vibratoToggle() {
+    if (isVibrato) {
+        isVibrato = false;
+        vibrato.stop();
+    } else {
+        const a = parseInt(document.getElementById(`vibratoFreqSlider`).value);
+        const b = parseInt(document.getElementById(`vibratoAmpSlider`).value);
+        document.getElementById(`vibratoCheckbox`).value = true;
+    
+        isVibrato = true;
+        vibrato.freq(a);
+        vibrato.amp(b);
+        vibrato.disconnect();
+        vibrato.start();
+    }
+}
+
+function chVibratoFreq() {
+    if (isVibrato) {
+        isVibrato = false;
+        vibratoToggle();
+    } else {
+        vibratoToggle();
+    }
+}
+
+function chVibratoAmp() {
+    if (isVibrato) {
+        isVibrato = false;
+        vibratoToggle();
+    } else {
+        vibratoToggle();
+    }
+}
+
+function tremoloToggle() {
+    if (isTremolo) {
+        isTremolo = false;
+        tremolo.stop();
+    } else {
+        console.log(`es tiku te!`)
+        const a = parseInt(document.getElementById(`tremoloFreqSlider`).value);
+        const b = parseInt(document.getElementById(`tremoloAmpSlider`).value);
+        document.getElementById(`tremoloCheckbox`).value = true;
+    
+        isTremolo = true;
+        tremolo.freq(a);
+        tremolo.amp(b);
+        tremolo.disconnect();
+        tremolo.start();
+    }
+}
+
+function chTremoloFreq() {
+    if (isTremolo) {
+        isTremolo = false;
+        tremoloToggle();
+    } else {
+        tremoloToggle();
+    }
+}
+
+function chTremoloAmp() {
+    if (isTremolo) {
+        isTremolo = false;
+        tremoloToggle();
+    } else {
+        tremoloToggle();
     }
 }
 

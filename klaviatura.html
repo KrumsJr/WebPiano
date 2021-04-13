@@ -136,19 +136,25 @@
                 </div>
             </div>
         </div>
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button" role="tab">Information</button>
+                <button class="nav-link active" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab">Information</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-sustain-tab" data-bs-toggle="pill" data-bs-target="#pills-sustain" type="button" role="tab">Sustain</button>
+                <button class="nav-link" id="nav-sustain-tab" data-bs-toggle="tab" data-bs-target="#nav-sustain" type="button" role="tab">Sustain</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="pills-arpeggiator-tab" data-bs-toggle="pill" data-bs-target="#pills-arpeggiator" type="button" role="tab">Arpeggiator</button>
+                <button class="nav-link" id="nav-arpeggiator-tab" data-bs-toggle="tab" data-bs-target="#nav-arpeggiator" type="button" role="tab">Arpeggiator</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nav-vibrato-tab" data-bs-toggle="tab" data-bs-target="#nav-vibrato" type="button" role="tab">Vibrato</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="nav-tremolo-tab" data-bs-toggle="tab" data-bs-target="#nav-tremolo" type="button" role="tab">Tremolo</button>
             </li>
         </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-info" role="tabpanel">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-info" role="tabpanel">
                 <h2>Controls description</h2>
                 <ul>
                     <li>
@@ -188,17 +194,41 @@
                     </li>
                 </ul>
             </div>
-            <div class="tab-pane fade" id="pills-sustain" role="tabpanel">
+            <div class="tab-pane fade" id="nav-sustain" role="tabpanel">
                 <h2>Sustain</h2>
                 <p>
                     Text and controls of the sustain effect
                 </p>
             </div>
-            <div class="tab-pane fade" id="pills-arpeggiator" role="tabpanel">
+            <div class="tab-pane fade" id="nav-arpeggiator" role="tabpanel">
                 <h2>Arpeggiator</h2>
                 <p>
                     Text and controls of the arpeggiator
                 </p>
+            </div>
+            <div class="tab-pane fade" id="nav-vibrato" role="tabpanel">
+                <h2>Vibrato <input type="checkbox" id="vibratoCheckbox" value="false" onchange="vibratoToggle();"></h2>
+                <p>
+                    Vibrato frequency
+                </p>
+                <input type="range" id="vibratoFreqSlider" min="0" max="20" step="0.2" value="5" onchange="chVibratoFreq();">
+                <p>
+                    Vibrato Amplitude
+                </p>
+                <input type="range" id="vibratoAmpSlider" min="0" max="100" step="1" value="10" onchange="chVibratoAmp();">
+
+            </div>
+            <div class="tab-pane fade" id="nav-tremolo" role="tabpanel">
+                <h2>Tremolo <input type="checkbox" id="tremoloCheckbox" value="false" onchange="tremoloToggle();"></h2>
+                <p>
+                    Tremolo frequency
+                </p>
+                <input type="range" id="tremoloFreqSlider" min="0" max="20" step="0.2" value="5" onchange="chTremoloFreq();">
+                <p>
+                    Tremolo Amplitude
+                </p>
+                <input type="range" id="tremoloAmpSlider" min="0" max="100" step="1" value="10" onchange="chTremoloAmp();">
+
             </div>
         </div>
     </div>

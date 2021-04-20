@@ -1,6 +1,6 @@
 # WebPiano
 ## About
-WebPiano is a project for creating a web based basic synthesizer, using the [p5.js][] library for creating sounds.
+WebPiano is a project for creating a web based synthesizer with multiple effects, using the [p5.js][] library for creating sounds.
 
 [p5.js]: https://p5js.org/
 

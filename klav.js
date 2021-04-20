@@ -13,9 +13,9 @@ let peleNospiesta = false;
 let sustainTime = 0.25;
 let sustainVol = 0;
 let foreverSustain = false;
-let sustained = [];
 let isVibrato = false
 let isTremolo = false
+let capsLockState = false;
 const vibrato = new p5.Oscillator();
 const tremolo = new p5.Oscillator();
 
@@ -101,20 +101,11 @@ document.addEventListener(`mouseup`, () => {
 });
 
 function KeyDwn(e) {
-
     //console.log(`${e.key} = ${e.keyCode}`);
+
+    capsLockState = e.getModifierState(`CapsLock`);
     if (!isNaN(taustini[e.keyCode]) && !nospiestsIr[taustini[e.keyCode]]) {
-
-        nospiestsIr[taustini[e.keyCode]] = true;
-
-        if (e.getModifierState(`CapsLock`)) {
-            arp.masivs.push(taustini[e.keyCode]);
-            arp.start();
-            //console.log(arp.masivs);
-        } else {
-            nospiedaTaustinu(taustini[e.keyCode]);
-        }
-        return;
+        KeyDwnProcessing(taustini[e.keyCode]);
     }
 
     if ((e.keyCode === 13) && (arp.intervalInput)) {
@@ -136,29 +127,50 @@ function KeyDwn(e) {
 
 }
 
+// e is value from taustini
+function KeyDwnProcessing(e) {
+    nospiestsIr[e] = true;
+
+    if (capsLockState) {
+        arp.masivs.push(e);
+        arp.start();
+    } else {
+        nospiedaTaustinu(e);
+    }
+    return;
+}
+
 function KeyUp(e) {
     if (!isNaN(taustini[e.keyCode])) {
-        atlaidaTaustinu(taustini[e.keyCode]);
-        nospiestsIr[taustini[e.keyCode]] = false;
-
-        if ((arp.iet) && (arp.masivs.length < 1)) {
-            arp.stop();
-        }
-        if (e.getModifierState(`CapsLock`)) {
-            arp.masivs.splice(arp.masivs.indexOf(taustini[e.keycode]), 1);
-        }
-
-        if (foreverSustain) {
-            sustained.push(taustini[e.keyCode]);
-            console.table(sustained);
-        }
+        KeyUpProcessing(taustini[e.keyCode]);
     }
 
     if (e.keyCode == 16) {
         foreverSustain = false;
 
-        sustained.forEach(a => atlaidaTaustinu(a));
-        sustained = [];
+        speleTagad.forEach((bool, num) => {
+            if (!nospiestsIr[num]) {
+                atlaidaTaustinu(num);
+            }
+        });
+
+        arp.masivs = [];
+        arp.stop();
+    }
+}
+
+// e is value from taustini
+function KeyUpProcessing(e) {
+    atlaidaTaustinu(e);
+    nospiestsIr[e] = false;
+
+    if (!foreverSustain) {
+        if ((arp.iet) && (arp.masivs.length < 1)) {
+            arp.stop();
+        }
+        if (capsLockState) {
+            arp.masivs.splice(arp.masivs.indexOf(e), 1);
+        }
     }
 }
 
@@ -183,7 +195,7 @@ function nospiedaTaustinu(a) {
 
 function atlaidaTaustinu(a) {
     if (speleTagad[a]) {
-        if (foreverSustain) return;
+        if (foreverSustain && !arp.iet) return;
         osc[a].amp(0, sustainTime);
         osc[a].stop(sustainTime + 0.1);
         speleTagad[a] = false;
@@ -198,7 +210,7 @@ function atlaidaTaustinu(a) {
 }
 
 function iebrauca(a) {
-    if (peleNospiesta) nospiedaTaustinu(a);
+    if (peleNospiesta) KeyDwnProcessing(a);
 }
 
 function chBaseFreq() {
